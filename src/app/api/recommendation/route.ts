@@ -4,8 +4,7 @@ export async function POST(request: Request) {
   try {
     const { address, lat, lng } = await request.json();
 
-    //const prompt = `職場の住所「${address}」の周辺で、住むのにおすすめのエリアを3つ、理由と共に教えてください。参考として、緯度${lat}、経度${lng}の情報を利用してください。`;
-    const prompt = `職場の住所「${address}」の周辺で、住むのにおすすめのエリアを3つ、理由と共に教えてください。参考として、緯度${lat}、経度${lng}の情報を利用してください。
+    const prompt = `職場の住所「${address}」に通うのにおすすめのエリアを3つ教えてください。家賃の低さ・治安・利便性などを考慮してください。おすすめの理由として地域の特色のあることを書いてください。参考として緯度${lat}、経度${lng}の情報を利用してください。
 返事は以下のようなフォーマットにしてください
 {
   "recommendations": [
@@ -24,7 +23,7 @@ export async function POST(request: Request) {
         model: 'gpt-4o-mini',
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.7,
-        max_tokens: 300
+        max_tokens: 500 
       })
     });
     const data = await res.json();
